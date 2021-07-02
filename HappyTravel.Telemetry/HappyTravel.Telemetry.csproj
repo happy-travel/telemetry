@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>9</LangVersion>
+    <Nullable>enable</Nullable>
+    <Copyright>HappyTravel.com</Copyright>
+    <Authors>Denis Nikolaev</Authors>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Description>Telemetry meta-package</Description>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/happy-travel/telemetry</PackageProjectUrl>
+    <RepositoryURL>https://github.com/happy-travel/telemetry</RepositoryURL>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>0.8.0</Version>
+    <OutputType>Library</OutputType>
+    <IsPackable>True</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTelemetry" Version="1.2.0-alpha.14" />
+    <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="1.2.0-alpha.14" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.2.0-alpha.14" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.2.0-alpha.14" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.2.0-alpha.14" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.2.0-alpha.14" />
+  </ItemGroup>
+
+</Project>
