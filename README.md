@@ -6,9 +6,16 @@ OpenTelemetry meta-package. Provides a unified way for setup telemetry
 - JaegerHost - set jaeger host. If not set jaeger exporter not be added (**optional**) 
 - JaegerPort - set jaeger port. If not set jaeger exporter not be added (**optional**)
 - RedisEndpoint - set redis endpoint. If not set data collection for redis not be added (**optional**)
-- IsEnabled - if false completely disable telemetry (**optional**)
 
 ## Usage
+Add to appsettings.json or consul
+```json
+{
+    "Telemetry": {
+        "IsEnabled": true
+    }
+}
+```
 
 ```csharp
 public class Startup
@@ -18,11 +25,10 @@ public class Startup
         ...
         
         services.AddTracing(options => {
-            ServiceName = "service-name",
-            JaegerHost = "localhost",
-            JaegerPort = 6831,
-            RedisEndpoint = "localhost:6379"
-            IsEnabled = true
+            options.ServiceName = "service-name";
+            options.JaegerHost = "localhost";
+            options.JaegerPort = 6831;
+            options.RedisEndpoint = "localhost:6379";
         });
         
         ...

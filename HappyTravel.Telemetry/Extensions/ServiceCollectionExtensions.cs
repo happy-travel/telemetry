@@ -1,5 +1,6 @@
 ﻿using System;
 using HappyTravel.Telemetry.Options;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -9,13 +10,13 @@ namespace HappyTravel.Telemetry.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddTracing(this IServiceCollection services, Action<TelemetryOptions> action)
+        public static IServiceCollection AddTracing(this IServiceCollection services, IConfiguration configuration, Action<TelemetryOptions> action)
         {
             var options = new TelemetryOptions();
             action.Invoke(options);
 
-            if (!options.IsEnabled)
-                return services;
+            services.Configure<SamplerOptions>(configuration.GetSection("Telemetry"));
+            services.AddTransient<Sampler>();
 
             services.AddOpenTelemetryTracing(builder =>
             {
@@ -26,7 +27,7 @@ namespace HappyTravel.Telemetry.Extensions
                 builder.SetResourceBuilder(resourceBuilder)
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
-                    .SetSampler(new AlwaysOnSampler());
+                    .SetSampler<Sampler>();
 
                 if (!string.IsNullOrEmpty(options.RedisEndpoint))
                 {
