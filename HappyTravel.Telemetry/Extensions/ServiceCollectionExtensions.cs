@@ -43,6 +43,8 @@ namespace HappyTravel.Telemetry.Extensions
                         o.AgentPort = options.JaegerPort.Value;
                     });
                 }
+
+                builder.AddEntityFrameworkCoreInstrumentation();
             });
 
             return services;
