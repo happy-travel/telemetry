@@ -27,6 +27,7 @@ namespace HappyTravel.Telemetry.Extensions
                 builder.SetResourceBuilder(resourceBuilder)
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
+                    .AddEntityFrameworkCoreInstrumentation()
                     .SetSampler<Sampler>();
 
                 if (!string.IsNullOrEmpty(options.RedisEndpoint))
