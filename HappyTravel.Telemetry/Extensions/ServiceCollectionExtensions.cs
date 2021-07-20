@@ -28,6 +28,7 @@ namespace HappyTravel.Telemetry.Extensions
                 builder.SetResourceBuilder(resourceBuilder)
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
+                    .AddEntityFrameworkCoreInstrumentation()
                     .SetSampler<Sampler>();
 
                 if (options.Sources is not null && options.Sources.Any())
