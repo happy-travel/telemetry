@@ -6,5 +6,6 @@
         public string? JaegerHost { get; set; }
         public int? JaegerPort { get; set; }
         public string? RedisEndpoint { get; set; }
+        public string[]? Sources { get; set; }
     }
 }

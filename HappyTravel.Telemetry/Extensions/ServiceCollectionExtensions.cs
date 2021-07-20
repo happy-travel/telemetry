@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using HappyTravel.Telemetry.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,9 @@ namespace HappyTravel.Telemetry.Extensions
                     .AddHttpClientInstrumentation()
                     .AddEntityFrameworkCoreInstrumentation()
                     .SetSampler<Sampler>();
+
+                if (options.Sources is not null && options.Sources.Any())
+                    builder.AddSource(options.Sources);
 
                 if (!string.IsNullOrEmpty(options.RedisEndpoint))
                 {
