@@ -9,12 +9,12 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NeutralLanguage>en</NeutralLanguage>
-    <Description>Telemetry meta-package</Description>
+    <Description>Added option for activity source names</Description>
     <PackageReleaseNotes>First release</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/happy-travel/telemetry</PackageProjectUrl>
     <RepositoryURL>https://github.com/happy-travel/telemetry</RepositoryURL>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>0.8.0</Version>
+    <Version>0.9.0</Version>
     <OutputType>Library</OutputType>
     <IsPackable>True</IsPackable>
   </PropertyGroup>
