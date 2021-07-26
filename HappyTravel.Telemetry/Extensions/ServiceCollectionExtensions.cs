@@ -17,11 +17,13 @@ namespace HappyTravel.Telemetry.Extensions
             action.Invoke(options);
 
             services.Configure<SamplerOptions>(configuration.GetSection("Telemetry"));
-            services.AddTransient<Sampler>();
+            services.AddSingleton<Sampler>();
 
             services.AddOpenTelemetryTracing(builder =>
             {
                 var resourceBuilder = ResourceBuilder.CreateDefault();
+                var sampler = services.BuildServiceProvider().GetRequiredService<Sampler>();
+                
                 if (!string.IsNullOrEmpty(options.ServiceName))
                     resourceBuilder.AddService(options.ServiceName);
 
@@ -29,7 +31,7 @@ namespace HappyTravel.Telemetry.Extensions
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddEntityFrameworkCoreInstrumentation()
-                    .SetSampler<Sampler>();
+                    .SetSampler(sampler);
 
                 if (options.Sources is not null && options.Sources.Any())
                     builder.AddSource(options.Sources);
