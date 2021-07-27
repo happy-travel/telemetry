@@ -30,7 +30,10 @@ namespace HappyTravel.Telemetry.Extensions
                 builder.SetResourceBuilder(resourceBuilder)
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
-                    .AddEntityFrameworkCoreInstrumentation()
+                    .AddEntityFrameworkCoreInstrumentation(o =>
+                    {
+                        o.SetDbStatementForText = true;
+                    })
                     .SetSampler(sampler);
 
                 if (options.Sources is not null && options.Sources.Any())
