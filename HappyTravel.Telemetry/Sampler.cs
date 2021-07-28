@@ -8,21 +8,20 @@ namespace HappyTravel.Telemetry
 {
     internal class Sampler : OpenTelemetry.Trace.Sampler
     {
-        public Sampler(IOptionsMonitor<SamplerEnabledOption> enabledOption, IOptions<SamplerIgnoredTagsOption> ignoredTagsOption)
+        public Sampler(IOptionsMonitor<SamplerOptions> samplerOptions)
         {
-            _enabledOption = enabledOption;
-            _ignoredTagsOption = ignoredTagsOption;
+            _samplerOptions = samplerOptions;
         }
 
 
         public override SamplingResult ShouldSample(in SamplingParameters samplingParameters) 
-            => _enabledOption.CurrentValue.IsEnabled && !HasIgnoredTags(samplingParameters)
+            => _samplerOptions.CurrentValue.IsEnabled && !HasIgnoredTags(samplingParameters)
                 ? new SamplingResult(SamplingDecision.RecordAndSample)
                 : new SamplingResult(SamplingDecision.Drop);
 
 
         private bool HasIgnoredTags(in SamplingParameters samplingParameters)
-            => samplingParameters.Tags.Intersect(_ignoredTagsOption.Value.IgnoredTags).Any() ||
+            => samplingParameters.Tags.Intersect(_samplerOptions.CurrentValue.IgnoredTags).Any() ||
                samplingParameters.Tags.Intersect(_ignoredTags).Any();
 
 
@@ -33,7 +32,6 @@ namespace HappyTravel.Telemetry
         };
         
 
-        private readonly IOptionsMonitor<SamplerEnabledOption> _enabledOption;
-        private readonly IOptions<SamplerIgnoredTagsOption> _ignoredTagsOption;
+        private readonly IOptionsMonitor<SamplerOptions> _samplerOptions;
     }
 }
