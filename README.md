@@ -2,6 +2,8 @@
 OpenTelemetry meta-package. Provides a unified way for setup telemetry
 
 ## Options
+- IsEnabled - enabling Jaeger exporter
+- IgnoredTags - records with specified tags will not be exported to Jaeger
 - ServiceName - set service name. If not set default name will be used (**optional**)
 - JaegerHost - set jaeger host. If not set jaeger exporter not be added (**optional**) 
 - JaegerPort - set jaeger port. If not set jaeger exporter not be added (**optional**)
@@ -13,7 +15,11 @@ Add to appsettings.json or consul
 ```json
 {
     "Telemetry": {
-        "IsEnabled": true
+        "IsEnabled": true,
+        "IgnoredTags": {
+            "TagName1": "Value1",
+            "TagName2": "Value2"
+        }
     }
 }
 ```
