@@ -16,7 +16,7 @@ namespace HappyTravel.Telemetry.Extensions
             var options = new TelemetryOptions();
             action.Invoke(options);
 
-            services.Configure<SamplerEnableOption>(configuration.GetSection("Telemetry"));
+            services.Configure<SamplerEnabledOption>(configuration.GetSection("Telemetry"));
             services.Configure<SamplerIgnoredTagsOption>(o =>
             {
                 o.IgnoredTags = options.IgnoredTags;

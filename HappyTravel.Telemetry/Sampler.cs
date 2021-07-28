@@ -8,7 +8,7 @@ namespace HappyTravel.Telemetry
 {
     internal class Sampler : OpenTelemetry.Trace.Sampler
     {
-        public Sampler(IOptionsMonitor<SamplerEnableOption> enabledOption, IOptions<SamplerIgnoredTagsOption> ignoredTagsOption)
+        public Sampler(IOptionsMonitor<SamplerEnabledOption> enabledOption, IOptions<SamplerIgnoredTagsOption> ignoredTagsOption)
         {
             _enabledOption = enabledOption;
             _ignoredTagsOption = ignoredTagsOption;
@@ -33,7 +33,7 @@ namespace HappyTravel.Telemetry
         };
         
 
-        private readonly IOptionsMonitor<SamplerEnableOption> _enabledOption;
+        private readonly IOptionsMonitor<SamplerEnabledOption> _enabledOption;
         private readonly IOptions<SamplerIgnoredTagsOption> _ignoredTagsOption;
     }
 }
