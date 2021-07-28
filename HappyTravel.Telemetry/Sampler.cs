@@ -1,4 +1,6 @@
-﻿using HappyTravel.Telemetry.Options;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HappyTravel.Telemetry.Options;
 using Microsoft.Extensions.Options;
 using OpenTelemetry.Trace;
 
@@ -13,10 +15,16 @@ namespace HappyTravel.Telemetry
 
 
         public override SamplingResult ShouldSample(in SamplingParameters samplingParameters) 
-            => _options.CurrentValue.IsEnabled
+            => _options.CurrentValue.IsEnabled && !samplingParameters.Tags.Intersect(_ignoredTags).Any()
                 ? new SamplingResult(SamplingDecision.RecordAndSample)
                 : new SamplingResult(SamplingDecision.Drop);
 
+
+        private readonly HashSet<KeyValuePair<string, object>> _ignoredTags = new()
+        {
+            new KeyValuePair<string, object>("http.path", "/health")
+        };
+        
 
         private readonly IOptionsMonitor<SamplerOptions> _options;
     }
