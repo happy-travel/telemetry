@@ -22,7 +22,8 @@ namespace HappyTravel.Telemetry
 
         private readonly HashSet<KeyValuePair<string, object>> _ignoredTags = new()
         {
-            new KeyValuePair<string, object>("http.path", "/health")
+            new KeyValuePair<string, object>("http.path", "/health"),
+            new KeyValuePair<string, object>("http.path", "/metrics")
         };
         
 
