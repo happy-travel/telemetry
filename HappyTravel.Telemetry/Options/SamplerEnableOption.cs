@@ -1,6 +1,6 @@
 ﻿namespace HappyTravel.Telemetry.Options
 {
-    internal class SamplerOptions
+    internal class SamplerEnableOption
     {
         public bool IsEnabled { get; set; }
     }

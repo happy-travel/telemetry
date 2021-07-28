@@ -7,6 +7,7 @@ OpenTelemetry meta-package. Provides a unified way for setup telemetry
 - JaegerPort - set jaeger port. If not set jaeger exporter not be added (**optional**)
 - RedisEndpoint - set redis endpoint. If not set data collection for redis not be added (**optional**)
 - Sources - set activity source names (**optional**)
+- IgnoredTags - records with ignored tags will not be exported to Jaeger (""optional"")
 
 ## Usage
 Add to appsettings.json or consul
@@ -31,6 +32,10 @@ public class Startup
             options.JaegerPort = 6831;
             options.RedisEndpoint = "localhost:6379";
             options.Sources = new[] {nameof(ExampleService1), nameof(ExampleService2)};
+            options.IgnoredTags = new()
+            {
+                new KeyValuePair<string, object>("http.host", "somehost")
+            };
         });
         
         ...
