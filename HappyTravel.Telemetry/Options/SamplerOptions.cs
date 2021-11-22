@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace HappyTravel.Telemetry.Options
+namespace HappyTravel.Telemetry.Options;
+
+internal class SamplerOptions
 {
-    internal class SamplerOptions
-    {
-        public bool IsEnabled { get; set; }
-        public Dictionary<string, object> IgnoredTags { get; set; } = new();
-    }
+    public bool IsEnabled { get; set; }
+    public Dictionary<string, object> IgnoredTags { get; set; } = new();
 }

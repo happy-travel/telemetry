@@ -7,55 +7,54 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using StackExchange.Redis;
 
-namespace HappyTravel.Telemetry.Extensions
+namespace HappyTravel.Telemetry.Extensions;
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    public static IServiceCollection AddTracing(this IServiceCollection services, IConfiguration configuration, Action<TelemetryOptions> action)
     {
-        public static IServiceCollection AddTracing(this IServiceCollection services, IConfiguration configuration, Action<TelemetryOptions> action)
+        var options = new TelemetryOptions();
+        action.Invoke(options);
+
+        services.Configure<SamplerOptions>(configuration.GetSection("Telemetry"));
+        services.AddSingleton<Sampler>();
+
+        services.AddOpenTelemetryTracing(builder =>
         {
-            var options = new TelemetryOptions();
-            action.Invoke(options);
-
-            services.Configure<SamplerOptions>(configuration.GetSection("Telemetry"));
-            services.AddSingleton<Sampler>();
-
-            services.AddOpenTelemetryTracing(builder =>
-            {
-                var resourceBuilder = ResourceBuilder.CreateDefault();
-                var sampler = services.BuildServiceProvider().GetRequiredService<Sampler>();
+            var resourceBuilder = ResourceBuilder.CreateDefault();
+            var sampler = services.BuildServiceProvider().GetRequiredService<Sampler>();
                 
-                if (!string.IsNullOrEmpty(options.ServiceName))
-                    resourceBuilder.AddService(options.ServiceName);
+            if (!string.IsNullOrEmpty(options.ServiceName))
+                resourceBuilder.AddService(options.ServiceName);
 
-                builder.SetResourceBuilder(resourceBuilder)
-                    .AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation()
-                    .AddEntityFrameworkCoreInstrumentation(o =>
-                    {
-                        o.SetDbStatementForText = true;
-                    })
-                    .SetSampler(sampler);
-
-                if (options.Sources is not null && options.Sources.Any())
-                    builder.AddSource(options.Sources);
-
-                if (!string.IsNullOrEmpty(options.RedisEndpoint))
+            builder.SetResourceBuilder(resourceBuilder)
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddEntityFrameworkCoreInstrumentation(o =>
                 {
-                    var connection = ConnectionMultiplexer.Connect(options.RedisEndpoint);
-                    builder.AddRedisInstrumentation(connection);
-                }
+                    o.SetDbStatementForText = true;
+                })
+                .SetSampler(sampler);
 
-                if (!string.IsNullOrEmpty(options.JaegerHost) && options.JaegerPort is not null)
+            if (options.Sources is not null && options.Sources.Any())
+                builder.AddSource(options.Sources);
+
+            if (!string.IsNullOrEmpty(options.RedisEndpoint))
+            {
+                var connection = ConnectionMultiplexer.Connect(options.RedisEndpoint);
+                builder.AddRedisInstrumentation(connection);
+            }
+
+            if (!string.IsNullOrEmpty(options.JaegerHost) && options.JaegerPort is not null)
+            {
+                builder.AddJaegerExporter(o =>
                 {
-                    builder.AddJaegerExporter(o =>
-                    {
-                        o.AgentHost = options.JaegerHost;
-                        o.AgentPort = options.JaegerPort.Value;
-                    });
-                }
-            });
+                    o.AgentHost = options.JaegerHost;
+                    o.AgentPort = options.JaegerPort.Value;
+                });
+            }
+        });
 
-            return services;
-        }
+        return services;
     }
 }
