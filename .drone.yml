@@ -10,7 +10,7 @@ trigger:
 
 steps:
 - name: Build packages
-  image: mcr.microsoft.com/dotnet/sdk:5.0-focal
+  image: mcr.microsoft.com/dotnet/sdk:6.0-focal
   environment:
     GITHUB_TOKEN:
       from_secret: GITHUB_TOKEN
@@ -45,7 +45,7 @@ trigger:
 
 steps:
 - name: Test packages
-  image: mcr.microsoft.com/dotnet/sdk:5.0-focal
+  image: mcr.microsoft.com/dotnet/sdk:6.0-focal
   environment:
     GITHUB_TOKEN:
       from_secret: GITHUB_TOKEN
