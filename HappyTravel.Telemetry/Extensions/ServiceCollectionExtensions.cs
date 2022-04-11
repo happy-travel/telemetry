@@ -29,6 +29,7 @@ public static class ServiceCollectionExtensions
 
             builder.SetResourceBuilder(resourceBuilder)
                 .AddAspNetCoreInstrumentation()
+                .AddGrpcCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddEntityFrameworkCoreInstrumentation(o =>
                 {
