@@ -10,11 +10,11 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>Telemetry meta-package</Description>
-    <PackageReleaseNotes>Updated packages</PackageReleaseNotes>
+    <PackageReleaseNotes>Added gRPC instrumentation</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/happy-travel/telemetry</PackageProjectUrl>
     <RepositoryURL>https://github.com/happy-travel/telemetry</RepositoryURL>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>0.15.7</Version>
+    <Version>0.16.0</Version>
     <OutputType>Library</OutputType>
     <IsPackable>True</IsPackable>
   </PropertyGroup>
@@ -24,6 +24,7 @@
     <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="1.1.0" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9.49" />
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.49" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.GrpcCore" Version="1.0.0-beta.5" />
     <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc9.49" />
     <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.0.0-rc9.49" />
   </ItemGroup>
