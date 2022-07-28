@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/happy-travel/telemetry</PackageProjectUrl>
     <RepositoryURL>https://github.com/happy-travel/telemetry</RepositoryURL>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>0.16.5</Version>
+    <Version>0.16.6</Version>
     <OutputType>Library</OutputType>
     <IsPackable>True</IsPackable>
   </PropertyGroup>
